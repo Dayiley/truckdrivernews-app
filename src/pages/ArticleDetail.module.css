@@ -1,0 +1,49 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.image {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #0a66c2;
+}
+
+.content {
+  color: #333;
+  line-height: 1.7;
+}
+
+.content p {
+  margin-bottom: 1rem;
+}
+
+.content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  margin: 1rem 0;
+  display: block;
+}
+
+.content h2,
+.content h3 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: #0a66c2;
+}
+
+.content a {
+  color: #0a66c2;
+  text-decoration: underline;
+}

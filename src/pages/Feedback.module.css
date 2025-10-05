@@ -1,0 +1,22 @@
+.container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.title {
+  text-align: center;
+  color: #0a66c2;
+  margin-bottom: 1rem;
+}
+
+.controls {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+}
+
+.error {
+  color: red;
+  text-align: center;
+}
