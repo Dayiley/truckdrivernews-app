@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createFeedback } from "./feedbackService.js";
+import { createFeedback } from "./feedbackServices.js";
 import styles from "./FeedbackForm.module.css";
 
 export default function FeedbackForm({ onFeedbackAdded }) {

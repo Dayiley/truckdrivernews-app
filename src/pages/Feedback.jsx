@@ -1,36 +1,54 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import FeedbackForm from "../features/feedback/FeedbackForm.jsx";
 import FeedbackList from "../features/feedback/FeedbackList.jsx";
-import { getFeedbacks } from "../features/feedback/feedbackService.js";
+import { getFeedbacks } from "../features/feedback/feedbackServices.js";
 import styles from "./Feedback.module.css";
 
 export default function Feedback() {
   const [feedbacks, setFeedbacks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [page, setPage] = useState(1);
   const [sort, setSort] = useState("desc");
+  const [offset, setOffset] = useState("");
+  const [nextOffset, setNextOffset] = useState(null);
+  const [prevOffsets, setPrevOffsets] = useState([]);
 
-  async function loadFeedbacks() {
-    setLoading(true);
-    try {
-      const data = await getFeedbacks(page, sort);
-      setFeedbacks(data.records || []);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  }
+  const loadFeedbacks = useCallback(
+    async (currentOffset = "") => {
+      setLoading(true);
+      try {
+        const data = await getFeedbacks(currentOffset, sort);
+        setFeedbacks(data.records || []);
+        setNextOffset(data.offset || null);
+
+        // ✅ actualizamos prevOffsets sin depender de su valor actual
+        if (currentOffset) {
+          setPrevOffsets((prev) => {
+            if (!prev.includes(currentOffset)) {
+              return [...prev, currentOffset];
+            }
+            return prev;
+          });
+        }
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [sort]
+  );
 
   useEffect(() => {
-    loadFeedbacks();
-  }, [page, sort]);
+    setOffset("");
+    setPrevOffsets([]);
+    loadFeedbacks("");
+  }, [sort, loadFeedbacks]);
 
   return (
     <section className={styles.container}>
       <h1 className={styles.title}>Feedback Manager</h1>
-      <FeedbackForm onFeedbackAdded={loadFeedbacks} />
+      <FeedbackForm onFeedbackAdded={() => loadFeedbacks(offset)} />
       <hr />
       <div className={styles.controls}>
         <label>
@@ -46,9 +64,23 @@ export default function Feedback() {
       {!loading && !error && (
         <FeedbackList
           feedbacks={feedbacks}
-          onReload={loadFeedbacks}
-          page={page}
-          setPage={setPage}
+          onReload={() => loadFeedbacks(offset)}
+          onNext={() => {
+            if (nextOffset) {
+              setOffset(nextOffset);
+              loadFeedbacks(nextOffset);
+            }
+          }}
+          onPrev={() => {
+            const newPrev = [...prevOffsets];
+            newPrev.pop(); // quitamos el último offset
+            const prev = newPrev[newPrev.length - 1] || "";
+            setPrevOffsets(newPrev);
+            setOffset(prev);
+            loadFeedbacks(prev);
+          }}
+          hasNext={!!nextOffset}
+          hasPrev={prevOffsets.length > 0}
         />
       )}
     </section>

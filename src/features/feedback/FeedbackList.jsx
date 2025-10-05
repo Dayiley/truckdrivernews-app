@@ -1,7 +1,14 @@
 import FeedbackItem from "./FeedbackItem.jsx";
 import styles from "./FeedbackList.module.css";
 
-export default function FeedbackList({ feedbacks, onReload, page, setPage }) {
+export default function FeedbackList({
+  feedbacks,
+  onReload,
+  onNext,
+  onPrev,
+  hasNext,
+  hasPrev,
+}) {
   if (feedbacks.length === 0) return <p>No feedbacks found.</p>;
 
   return (
@@ -11,11 +18,8 @@ export default function FeedbackList({ feedbacks, onReload, page, setPage }) {
       ))}
 
       <div className={styles.pagination}>
-        {page > 1 && <button onClick={() => setPage(page - 1)}>← Prev</button>}
-        <span>Page {page}</span>
-        {feedbacks.length >= 5 && (
-          <button onClick={() => setPage(page + 1)}>Next →</button>
-        )}
+        {hasPrev && <button onClick={onPrev}>← Prev</button>}
+        {hasNext && <button onClick={onNext}>Next →</button>}
       </div>
     </div>
   );

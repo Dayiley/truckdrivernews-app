@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { updateFeedback, deleteFeedback } from "./feedbackService.js";
+import { updateFeedback, deleteFeedback } from "./feedbackServices.js";
 import styles from "./FeedbackItem.module.css";
 
 export default function FeedbackItem({ feedback, onReload }) {
