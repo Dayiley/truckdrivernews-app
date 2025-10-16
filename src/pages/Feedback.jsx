@@ -21,7 +21,6 @@ export default function Feedback() {
         setFeedbacks(data.records || []);
         setNextOffset(data.offset || null);
 
-        // ✅ actualizamos prevOffsets sin depender de su valor actual
         if (currentOffset) {
           setPrevOffsets((prev) => {
             if (!prev.includes(currentOffset)) {
