@@ -21,8 +21,12 @@ export default function FeedbackForm({ onFeedbackAdded }) {
 
     setStatus("loading");
     try {
-      await createFeedback({ Name: form.name, Message: form.message });
-      setForm({ name: "", message: "" });
+      await createFeedback({
+        Name: form.name,
+        Email: form.email,
+        Message: form.message,
+      });
+      setForm({ name: "", email: "", message: "" });
       setStatus("success");
       onFeedbackAdded();
     } catch {
@@ -36,6 +40,7 @@ export default function FeedbackForm({ onFeedbackAdded }) {
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
       <h2>Submit Feedback</h2>
+
       <input
         type="text"
         name="name"
@@ -43,17 +48,30 @@ export default function FeedbackForm({ onFeedbackAdded }) {
         value={form.name}
         onChange={handleChange}
       />
+
       <input
-        type="text"
+        type="email"
+        name="email"
+        placeholder="Your email (optional)"
+        value={form.email}
+        onChange={handleChange}
+      />
+
+      <textarea
         name="message"
         placeholder="Your feedback"
         value={form.message}
         onChange={handleChange}
+        rows="3"
+        className={styles.textarea}
       />
+
       {error && <p className={styles.error}>{error}</p>}
+
       <button disabled={status === "loading"}>
         {status === "loading" ? "Sending..." : "Add Feedback"}
       </button>
+
       {status === "success" && (
         <p className={styles.success}>Feedback added ✅</p>
       )}

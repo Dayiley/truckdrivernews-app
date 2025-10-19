@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react";
 import ArticleCard from "../features/articles/ArticleCard.jsx";
+import {
+  getArticlesCached,
+  invalidateArticlesCache,
+} from "../features/articles/articlesCache";
 import styles from "./Home.module.css";
 
 export default function Home() {
@@ -7,23 +11,47 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  async function fetchArticlesFromApi() {
+    const res = await fetch(
+      "https://truckdrivernews.com/wp-json/wp/v2/posts?_embed"
+    );
+    if (!res.ok) throw new Error("Network response was not ok");
+    return await res.json();
+  }
+
   useEffect(() => {
-    async function fetchArticles() {
+    let isMounted = true;
+
+    async function loadArticles() {
       try {
-        const res = await fetch(
-          "https://truckdrivernews.com/wp-json/wp/v2/posts?_embed"
+        const { fromCache, articles } = await getArticlesCached(
+          fetchArticlesFromApi,
+          {
+            ttlMs: 10 * 60 * 1000,
+          }
         );
-        if (!res.ok) throw new Error("Network response was not ok");
-        const data = await res.json();
-        setArticles(data);
+
+        if (!isMounted) return;
+
+        setArticles(articles);
+        setLoading(false);
+
+        if (fromCache) {
+          console.log("✅ Articles loaded from cache");
+        } else {
+          console.log("🌐 Articles fetched from API");
+        }
       } catch (err) {
+        if (!isMounted) return;
         setError(err.message);
-      } finally {
         setLoading(false);
       }
     }
 
-    fetchArticles();
+    loadArticles();
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   if (loading) return <p>Loading articles...</p>;
@@ -33,6 +61,17 @@ export default function Home() {
     <section className={styles.container}>
       <h1 className={styles.title}>Truck Driver News</h1>
       <p className={styles.subtitle}>Latest trucking industry articles</p>
+
+      <button
+        onClick={() => {
+          invalidateArticlesCache();
+          window.location.reload();
+        }}
+        className={styles.refreshButton}
+      >
+        Refresh Articles
+      </button>
+
       {articles.length === 0 ? (
         <p>No articles found.</p>
       ) : (

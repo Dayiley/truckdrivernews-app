@@ -7,6 +7,19 @@ export default function FeedbackItem({ feedback, onReload }) {
   const [message, setMessage] = useState(feedback.fields.Message);
   const [status, setStatus] = useState("idle");
 
+  const createdRaw = feedback.fields?.Created || feedback.createdTime;
+  const createdDate = createdRaw ? new Date(createdRaw) : null;
+  const formattedDate = createdDate
+    ? createdDate.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      })
+    : "Unknown date";
+
+  const name = feedback.fields?.Name || "Anonymous";
+  const email = feedback.fields?.Email || "";
+
   async function handleUpdate() {
     setStatus("loading");
     try {
@@ -27,29 +40,76 @@ export default function FeedbackItem({ feedback, onReload }) {
   }
 
   return (
-    <div className={styles.card}>
-      <strong>{feedback.fields.Name}</strong>
-      {editing ? (
-        <input value={message} onChange={(e) => setMessage(e.target.value)} />
-      ) : (
-        <p>{feedback.fields.Message}</p>
-      )}
-
+    <article className={styles.card}>
       <div className={styles.actions}>
         {editing ? (
           <>
-            <button onClick={handleUpdate} disabled={status === "loading"}>
+            <button
+              onClick={handleUpdate}
+              disabled={status === "loading"}
+              aria-label="Save feedback"
+              title="Save"
+              className={styles.iconBtn}
+            >
               Save
             </button>
-            <button onClick={() => setEditing(false)}>Cancel</button>
+            <button
+              onClick={() => setEditing(false)}
+              aria-label="Cancel edit"
+              title="Cancel"
+              className={styles.iconBtn}
+            >
+              ✖
+            </button>
           </>
         ) : (
           <>
-            <button onClick={() => setEditing(true)}>Edit</button>
-            <button onClick={handleDelete}>Delete</button>
+            <button
+              onClick={() => setEditing(true)}
+              aria-label="Edit feedback"
+              title="Edit"
+              className={styles.iconBtn}
+            >
+              <i className="fa-regular fa-pen-to-square"></i>
+            </button>
+            <button
+              onClick={handleDelete}
+              aria-label="Delete feedback"
+              title="Delete"
+              className={styles.iconBtn}
+            >
+              <i className="fa-solid fa-trash"></i>
+            </button>
           </>
         )}
       </div>
-    </div>
+
+      {editing ? (
+        <input
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          className={styles.editInput}
+          placeholder="Edit feedback…"
+        />
+      ) : (
+        <p className={styles.text}>{feedback.fields.Message}</p>
+      )}
+
+      <footer className={styles.footer}>
+        Submitted by{" "}
+        {email ? (
+          <a
+            href={`mailto:${email}`}
+            className={styles.emailLink}
+            title={`Email ${name}`}
+          >
+            {name}
+          </a>
+        ) : (
+          <strong className={styles.nameOnly}>{name}</strong>
+        )}{" "}
+        on {formattedDate}
+      </footer>
+    </article>
   );
 }

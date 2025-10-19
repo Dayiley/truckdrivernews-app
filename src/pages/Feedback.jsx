@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import FeedbackForm from "../features/feedback/FeedbackForm.jsx";
 import FeedbackList from "../features/feedback/FeedbackList.jsx";
 import { getFeedbacks } from "../features/feedback/feedbackServices.js";
@@ -46,7 +46,7 @@ export default function Feedback() {
 
   return (
     <section className={styles.container}>
-      <h1 className={styles.title}>Feedback Manager</h1>
+      <h1 className={styles.title}>Leave us Feedback!</h1>
       <FeedbackForm onFeedbackAdded={() => loadFeedbacks(offset)} />
       <hr />
       <div className={styles.controls}>
@@ -72,7 +72,7 @@ export default function Feedback() {
           }}
           onPrev={() => {
             const newPrev = [...prevOffsets];
-            newPrev.pop(); // quitamos el último offset
+            newPrev.pop();
             const prev = newPrev[newPrev.length - 1] || "";
             setPrevOffsets(newPrev);
             setOffset(prev);

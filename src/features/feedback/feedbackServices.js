@@ -10,7 +10,7 @@ const headers = {
 
 export async function getFeedbacks(offset = "", sort = "desc") {
   const pageSize = 5;
-  const url = new URL(`https://api.airtable.com/v0/${BASE_ID}/${TABLE_NAME}`);
+  const url = new URL(BASE_URL);
   url.searchParams.append("pageSize", pageSize);
   url.searchParams.append("sort[0][field]", "Created");
   url.searchParams.append("sort[0][direction]", sort);

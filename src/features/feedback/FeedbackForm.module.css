@@ -11,6 +11,17 @@ input {
   border-radius: 4px;
 }
 
+.textarea {
+  resize: vertical;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-family: inherit;
+  width: 100%;
+  box-sizing: border-box;
+}
+
 button {
   padding: 0.5rem;
   background-color: #0a66c2;
