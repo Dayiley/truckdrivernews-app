@@ -13,7 +13,7 @@ export default function Footer({ children }) {
       <p style={{ display: 'block', margin: '0 auto' }}>
         © {year}{' '}
         <a
-          href="https://github.com/Dayiley/truckdrivernews-app"
+          href="https://https://truckdrivernews.com/"
           target="_blank"
           rel="noopener noreferrer"
         >
