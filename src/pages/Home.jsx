@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
-import ArticleCard from "../features/articles/ArticleCard.jsx";
+import { useState, useEffect } from 'react';
+import ArticleCard from '../features/articles/ArticleCard.jsx';
 import {
   getArticlesCached,
   invalidateArticlesCache,
-} from "../features/articles/articlesCache";
+} from '../features/articles/articlesCache';
 
 export default function Home() {
   const [articles, setArticles] = useState([]);
@@ -11,10 +11,8 @@ export default function Home() {
   const [error, setError] = useState(null);
 
   async function fetchArticlesFromApi() {
-    const res = await fetch(
-      "https://truckdrivernews.com/wp-json/wp/v2/posts?_embed"
-    );
-    if (!res.ok) throw new Error("Network response was not ok");
+    const res = await fetch('https://truckdrivernews.com/wp-json/wp/v2/posts?_embed');
+    if (!res.ok) throw new Error('Network response was not ok');
     return await res.json();
   }
 
@@ -23,12 +21,9 @@ export default function Home() {
 
     async function loadArticles() {
       try {
-        const { fromCache, articles } = await getArticlesCached(
-          fetchArticlesFromApi,
-          {
-            ttlMs: 10 * 60 * 1000,
-          }
-        );
+        const { fromCache, articles } = await getArticlesCached(fetchArticlesFromApi, {
+          ttlMs: 10 * 60 * 1000,
+        });
 
         if (!isMounted) return;
 
@@ -36,9 +31,9 @@ export default function Home() {
         setLoading(false);
 
         if (fromCache) {
-          console.log("✅ Articles loaded from cache");
+          console.log('✅ Articles loaded from cache');
         } else {
-          console.log("🌐 Articles fetched from API");
+          console.log('🌐 Articles fetched from API');
         }
       } catch (err) {
         if (!isMounted) return;
@@ -54,16 +49,14 @@ export default function Home() {
   }, []);
 
   if (loading) return <p>Loading articles...</p>;
-  if (error) return <p style={{ color: "red" }}>Error: {error}</p>;
+  if (error) return <p style={{ color: 'red' }}>Error: {error}</p>;
 
   return (
     <section>
       {articles.length === 0 ? (
         <p>No articles found.</p>
       ) : (
-        articles.map((article) => (
-          <ArticleCard key={article.id} article={article} />
-        ))
+        articles.map((article) => <ArticleCard key={article.id} article={article} />)
       )}
 
       <button

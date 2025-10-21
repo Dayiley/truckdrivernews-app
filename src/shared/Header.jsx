@@ -1,14 +1,10 @@
-import { useState } from "react";
-import { NavLink } from "react-router-dom";
-import ThemeToggle from "./ThemeToggle";
-import Logo from "../assets/Logo.png";
-import styles from "./Header.module.css";
+import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
+import ThemeToggle from './ThemeToggle';
+import Logo from '../assets/Logo.png';
+import styles from './Header.module.css';
 
 export default function Header() {
-  const activeStyle = {
-    fontWeight: "bold",
-    color: "var(--text)",
-  };
   const [open, setOpen] = useState(false);
 
   return (
@@ -27,24 +23,33 @@ export default function Header() {
           ☰
         </button>
 
-        <nav className={`${styles.nav} ${open ? styles.show : ""}`}>
+        <nav
+          aria-label="Main Navigation"
+          className={`${styles.nav} ${open ? styles.show : ''}`}
+        >
           <NavLink
             to="/"
-            style={({ isActive }) => (isActive ? activeStyle : undefined)}
+            className={({ isActive }) =>
+              `${styles.link} ${isActive ? styles.active : ''}`
+            }
             onClick={() => setOpen(false)}
           >
             Home
-          </NavLink>{" "}
+          </NavLink>{' '}
           <NavLink
             to="/about"
-            style={({ isActive }) => (isActive ? activeStyle : undefined)}
+            className={({ isActive }) =>
+              `${styles.link} ${isActive ? styles.active : ''}`
+            }
             onClick={() => setOpen(false)}
           >
             About
-          </NavLink>{" "}
+          </NavLink>{' '}
           <NavLink
             to="/feedback"
-            style={({ isActive }) => (isActive ? activeStyle : undefined)}
+            className={({ isActive }) =>
+              `${styles.link} ${isActive ? styles.active : ''}`
+            }
             onClick={() => setOpen(false)}
           >
             Feedback

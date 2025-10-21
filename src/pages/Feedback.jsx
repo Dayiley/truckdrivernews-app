@@ -1,21 +1,22 @@
-import { useState, useEffect, useCallback } from "react";
-import FeedbackForm from "../features/feedback/FeedbackForm.jsx";
-import FeedbackList from "../features/feedback/FeedbackList.jsx";
-import { getFeedbacks } from "../features/feedback/feedbackServices.js";
-import styles from "./Feedback.module.css";
+import { useState, useEffect, useCallback } from 'react';
+import FeedbackForm from '../features/feedback/FeedbackForm.jsx';
+import FeedbackList from '../features/feedback/FeedbackList.jsx';
+import { getFeedbacks } from '../features/feedback/feedbackServices.js';
+import styles from './Feedback.module.css';
 
 export default function Feedback() {
   const [feedbacks, setFeedbacks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [sort, setSort] = useState("desc");
-  const [offset, setOffset] = useState("");
+  const [sort, setSort] = useState('desc');
+  const [offset, setOffset] = useState('');
   const [nextOffset, setNextOffset] = useState(null);
   const [prevOffsets, setPrevOffsets] = useState([]);
 
   const loadFeedbacks = useCallback(
-    async (currentOffset = "") => {
+    async (currentOffset = '') => {
       setLoading(true);
+      setError(null);
       try {
         const data = await getFeedbacks(currentOffset, sort);
         setFeedbacks(data.records || []);
@@ -35,13 +36,13 @@ export default function Feedback() {
         setLoading(false);
       }
     },
-    [sort]
+    [sort],
   );
 
   useEffect(() => {
-    setOffset("");
+    setOffset('');
     setPrevOffsets([]);
-    loadFeedbacks("");
+    loadFeedbacks('');
   }, [sort, loadFeedbacks]);
 
   return (
@@ -60,6 +61,9 @@ export default function Feedback() {
       </div>
       {loading && <p>Loading feedbacks...</p>}
       {error && <p className={styles.error}>{error}</p>}
+      {!loading && !error && feedbacks.length === 0 && (
+        <p>No feedback yet. Be the first to leave one!</p>
+      )}
       {!loading && !error && (
         <FeedbackList
           feedbacks={feedbacks}
@@ -73,7 +77,7 @@ export default function Feedback() {
           onPrev={() => {
             const newPrev = [...prevOffsets];
             newPrev.pop();
-            const prev = newPrev[newPrev.length - 1] || "";
+            const prev = newPrev[newPrev.length - 1] || '';
             setPrevOffsets(newPrev);
             setOffset(prev);
             loadFeedbacks(prev);

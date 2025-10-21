@@ -1,40 +1,40 @@
-import { useState } from "react";
-import { updateFeedback, deleteFeedback } from "./feedbackServices.js";
-import styles from "./FeedbackItem.module.css";
+import { useState } from 'react';
+import { updateFeedback, deleteFeedback } from './feedbackServices.js';
+import styles from './FeedbackItem.module.css';
 
 export default function FeedbackItem({ feedback, onReload }) {
   const [editing, setEditing] = useState(false);
   const [message, setMessage] = useState(feedback.fields.Message);
-  const [status, setStatus] = useState("idle");
+  const [status, setStatus] = useState('idle');
 
   const createdRaw = feedback.fields?.Created || feedback.createdTime;
   const createdDate = createdRaw ? new Date(createdRaw) : null;
   const formattedDate = createdDate
-    ? createdDate.toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "short",
-        day: "numeric",
+    ? createdDate.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
       })
-    : "Unknown date";
+    : 'Unknown date';
 
-  const name = feedback.fields?.Name || "Anonymous";
-  const email = feedback.fields?.Email || "";
+  const name = feedback.fields?.Name || 'Anonymous';
+  const email = feedback.fields?.Email || '';
 
   async function handleUpdate() {
-    setStatus("loading");
+    setStatus('loading');
     try {
       await updateFeedback(feedback.id, { Message: message });
       setEditing(false);
       onReload();
     } catch {
-      setStatus("error");
+      setStatus('error');
     } finally {
-      setStatus("idle");
+      setStatus('idle');
     }
   }
 
   async function handleDelete() {
-    if (!confirm("Delete this feedback?")) return;
+    if (!confirm('Delete this feedback?')) return;
     await deleteFeedback(feedback.id);
     onReload();
   }
@@ -46,7 +46,7 @@ export default function FeedbackItem({ feedback, onReload }) {
           <>
             <button
               onClick={handleUpdate}
-              disabled={status === "loading"}
+              disabled={status === 'loading'}
               aria-label="Save feedback"
               title="Save"
               className={styles.iconBtn}
@@ -95,8 +95,8 @@ export default function FeedbackItem({ feedback, onReload }) {
         <p className={styles.text}>{feedback.fields.Message}</p>
       )}
 
-      <footer className={styles.footer}>
-        Submitted by{" "}
+      <p className={styles.footer}>
+        Submitted by{' '}
         {email ? (
           <a
             href={`mailto:${email}`}
@@ -107,9 +107,9 @@ export default function FeedbackItem({ feedback, onReload }) {
           </a>
         ) : (
           <strong className={styles.nameOnly}>{name}</strong>
-        )}{" "}
+        )}{' '}
         on {formattedDate}
-      </footer>
+      </p>
     </article>
   );
 }

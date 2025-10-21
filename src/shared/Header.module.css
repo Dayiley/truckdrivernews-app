@@ -3,25 +3,32 @@ header {
   top: 0;
   left: 0;
   right: 0;
-  height: 8vh;
+  height: 3.5rem;
   background: var(--bg-2);
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 1rem;
   border-bottom: 1px solid var(--border);
-  font-family: "BBH Sans Bogle", sans-serif;
+  font-family: 'BBH Sans Bogle', sans-serif;
   z-index: 1000;
 }
-
-.left {
+.hLeft,
+.hRight {
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  flex-direction: row;
 }
 
 .logo {
-  height: 40px;
+  height: 3rem;
+  width: auto;
+  margin-top: 0.25rem;
+}
+.TDN {
+  font-size: 1.5rem;
+  font-weight: 200;
+  font-style: normal;
+  margin-left: 0.3rem;
 }
 
 .nav {
@@ -32,24 +39,13 @@ header {
   color: var(--text);
 }
 
-.logo {
-  height: 40px;
-  width: auto;
-  margin-top: 0.5rem;
+.link {
+  color: var(--text);
+  text-decoration: none;
 }
-.TDN {
-  font-size: 1.5rem;
-  font-weight: 200;
-  font-style: normal;
-  margin-left: 0.3rem;
-}
-.hLeft {
-  display: flex;
-  flex-direction: row;
-}
-.hRight {
-  display: flex;
-  flex-direction: row;
+.active {
+  font-weight: bold;
+  color: var(--accent);
 }
 
 .hamburger {

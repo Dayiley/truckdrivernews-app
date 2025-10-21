@@ -1,5 +1,5 @@
-import FeedbackItem from "./FeedbackItem.jsx";
-import styles from "./FeedbackList.module.css";
+import FeedbackItem from './FeedbackItem.jsx';
+import styles from './FeedbackList.module.css';
 
 export default function FeedbackList({
   feedbacks,
@@ -9,8 +9,6 @@ export default function FeedbackList({
   hasNext,
   hasPrev,
 }) {
-  if (feedbacks.length === 0) return <p>No feedbacks found.</p>;
-
   return (
     <div className={styles.list}>
       {feedbacks.map((fb) => (
@@ -18,8 +16,12 @@ export default function FeedbackList({
       ))}
 
       <div className={styles.pagination}>
-        {hasPrev && <button onClick={onPrev}>← Prev</button>}
-        {hasNext && <button onClick={onNext}>Next →</button>}
+        <button onClick={onPrev} disabled={!hasPrev} aria-label="Go to previous page">
+          ← Prev
+        </button>
+        <button onClick={onNext} disabled={!hasNext} aria-label="Go to next page">
+          Next →
+        </button>
       </div>
     </div>
   );
