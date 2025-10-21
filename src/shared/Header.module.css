@@ -1,0 +1,87 @@
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 8vh;
+  background: var(--bg-2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+  border-bottom: 1px solid var(--border);
+  font-family: "BBH Sans Bogle", sans-serif;
+  z-index: 1000;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logo {
+  height: 40px;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.1rem;
+  color: var(--text);
+}
+
+.logo {
+  height: 40px;
+  width: auto;
+  margin-top: 0.5rem;
+}
+.TDN {
+  font-size: 1.5rem;
+  font-weight: 200;
+  font-style: normal;
+  margin-left: 0.3rem;
+}
+.hLeft {
+  display: flex;
+  flex-direction: row;
+}
+.hRight {
+  display: flex;
+  flex-direction: row;
+}
+
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: var(--text);
+}
+
+@media (max-width: 500px) {
+  .nav {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 57px;
+    right: 0;
+    left: 35%;
+    background: var(--card-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    width: 50%;
+    padding: 1rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .nav.show {
+    display: flex;
+  }
+
+  .hamburger {
+    display: block;
+  }
+}

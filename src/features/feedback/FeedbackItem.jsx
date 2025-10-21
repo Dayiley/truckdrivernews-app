@@ -40,7 +40,7 @@ export default function FeedbackItem({ feedback, onReload }) {
   }
 
   return (
-    <article className={styles.card}>
+    <article className="card">
       <div className={styles.actions}>
         {editing ? (
           <>

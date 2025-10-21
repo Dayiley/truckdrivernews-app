@@ -4,7 +4,6 @@ import {
   getArticlesCached,
   invalidateArticlesCache,
 } from "../features/articles/articlesCache";
-import styles from "./Home.module.css";
 
 export default function Home() {
   const [articles, setArticles] = useState([]);
@@ -58,20 +57,7 @@ export default function Home() {
   if (error) return <p style={{ color: "red" }}>Error: {error}</p>;
 
   return (
-    <section className={styles.container}>
-      <h1 className={styles.title}>Truck Driver News</h1>
-      <p className={styles.subtitle}>Latest trucking industry articles</p>
-
-      <button
-        onClick={() => {
-          invalidateArticlesCache();
-          window.location.reload();
-        }}
-        className={styles.refreshButton}
-      >
-        Refresh Articles
-      </button>
-
+    <section>
       {articles.length === 0 ? (
         <p>No articles found.</p>
       ) : (
@@ -79,6 +65,15 @@ export default function Home() {
           <ArticleCard key={article.id} article={article} />
         ))
       )}
+
+      <button
+        onClick={() => {
+          invalidateArticlesCache();
+          window.location.reload();
+        }}
+      >
+        Refresh Articles
+      </button>
     </section>
   );
 }

@@ -1,0 +1,100 @@
+@import url("https://fonts.googleapis.com/css2?family=BBH+Sans+Bogle&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap");
+
+:root {
+  --bg: #e2e2e2;
+  --bg-2: rgb(255, 255, 255);
+  --card-bg: rgba(255, 255, 255, 0.211);
+  --text: #0c214d;
+  --card-txt: #091737;
+  --muted: #3e4a63;
+  --border: #ebf0fadb;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+  --card-border: rgba(255, 255, 255, 0.4);
+  --ct-hover: #000000;
+
+  --btn-bg: #0a1a3c;
+  --btn-text: #ffffff;
+  --btn-border: #0a1a3c;
+  --btn-bg-hover: #152a5c;
+
+  --btn-muted-bg: #e8ebf0;
+  --btn-muted-text: #0a1a3c;
+  --btn-muted-border: #cdd2db;
+
+  --danger: #d62828;
+  --danger-hover: #f94144;
+
+  --accent: #005f8e;
+}
+
+:root[data-theme="dark"] {
+  --bg: #030b1a;
+  --bg-2: rgb(7, 21, 49);
+  --card-bg: rgba(21, 36, 66, 0.517);
+  --text: #ffffff;
+  --card-txt: #f7f7f7;
+  --muted: #c7c7c7f8;
+  --border: #1e2a44;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  --card-border: rgba(255, 255, 255, 0.1);
+  --ct-hover: #ffffff;
+
+  --btn-bg: #00bcd4;
+  --btn-text: #030b1a;
+  --btn-border: #00a8bf;
+  --btn-bg-hover: #26d2e0;
+
+  --btn-muted-bg: #081024;
+  --btn-muted-text: #d9dce2;
+  --btn-muted-border: #1e2a44;
+
+  --danger: #ef4444;
+  --danger-hover: #f87171;
+
+  --accent: #00bcd4;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Source Sans 3";
+  margin: 0;
+}
+
+main {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 80px 10px 10px 10px;
+  min-height: 85vh;
+}
+
+.card {
+  background: var(--card-bg);
+  color: var(--muted);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  padding: 0rem;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+}
+.card:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.25);
+}
+
+a,
+.highlight {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}

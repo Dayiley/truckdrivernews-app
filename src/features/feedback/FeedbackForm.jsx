@@ -39,30 +39,29 @@ export default function FeedbackForm({ onFeedbackAdded }) {
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
-      <h2>Submit Feedback</h2>
+      <div className={styles.nameEmail}>
+        <input
+          type="text"
+          name="name"
+          placeholder="Your name"
+          value={form.name}
+          onChange={handleChange}
+        />
 
-      <input
-        type="text"
-        name="name"
-        placeholder="Your name"
-        value={form.name}
-        onChange={handleChange}
-      />
-
-      <input
-        type="email"
-        name="email"
-        placeholder="Your email (optional)"
-        value={form.email}
-        onChange={handleChange}
-      />
-
+        <input
+          type="email"
+          name="email"
+          placeholder="Your email (optional)"
+          value={form.email}
+          onChange={handleChange}
+        />
+      </div>
       <textarea
         name="message"
         placeholder="Your feedback"
         value={form.message}
         onChange={handleChange}
-        rows="3"
+        rows="2"
         className={styles.textarea}
       />
 

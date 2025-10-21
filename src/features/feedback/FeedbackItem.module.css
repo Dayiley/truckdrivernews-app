@@ -1,33 +1,17 @@
-.card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  background: #fff;
-  border: 1px solid #e6e8eb;
-  border-radius: 12px;
-  padding: 16px 16px 12px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
-}
-
 .actions {
   position: absolute;
-  top: 8px;
-  right: 8px;
+  top: 0;
+  right: 0;
   display: flex;
-  gap: 6px;
 }
 
 .iconBtn {
-  background: #f8fafc;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  padding: 6px 8px;
+  background: none;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.15s ease, transform 0.05s ease;
+  color: rgb(105, 105, 105);
 }
 .iconBtn i {
   font-size: 15px;
@@ -43,15 +27,16 @@
 }
 
 .text {
-  color: #1f2937;
-  font-size: 0.98rem;
+  color: var(--card-txt);
+  font-size: 1rem;
   line-height: 1.55;
-  margin-top: 20px;
+  margin: 25px 50px;
   white-space: pre-wrap;
+  text-align: center;
 }
 
 .editInput {
-  width: 100%;
+  width: 97%;
   font-size: 0.98rem;
   padding: 8px 10px;
   border-radius: 8px;
@@ -59,15 +44,12 @@
 }
 
 .footer {
-  margin-top: 4px;
-  padding-top: 10px;
-  border-top: 1px solid #eef1f5;
   color: #6b7280;
   font-size: 0.9rem;
+  text-align: center;
 }
 
 .emailLink {
-  color: #0ea5e9;
   font-weight: 600;
   text-decoration: none;
 }
@@ -78,5 +60,5 @@
 
 .nameOnly {
   font-weight: 600;
-  color: #374151;
+  color: var(--card-txt);
 }

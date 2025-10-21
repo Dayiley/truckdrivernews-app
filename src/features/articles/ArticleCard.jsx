@@ -10,7 +10,7 @@ export default function ArticleCard({ article }) {
     article._embedded["wp:featuredmedia"][0].source_url;
 
   return (
-    <article className={styles.card}>
+    <article className="card">
       {image && <img src={image} alt={title} className={styles.image} />}
       <h2
         className={styles.title}
@@ -20,7 +20,10 @@ export default function ArticleCard({ article }) {
         className={styles.excerpt}
         dangerouslySetInnerHTML={{ __html: excerpt }}
       />
-      <Link to={`/article/${article.id}`}>Read More →</Link>
+
+      <Link to={`/article/${article.id}`} className={styles.readMore}>
+        Read More →
+      </Link>
     </article>
   );
 }
