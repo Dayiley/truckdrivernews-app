@@ -12,11 +12,7 @@ export default function Footer({ children }) {
     >
       <p style={{ display: 'block', margin: '0 auto' }}>
         © {year}{' '}
-        <a
-          href="https://https://truckdrivernews.com/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <a href="https://truckdrivernews.com/" target="_blank" rel="noopener noreferrer">
           Truck Driver News
         </a>{' '}
         app Built with React & Vite {children}
